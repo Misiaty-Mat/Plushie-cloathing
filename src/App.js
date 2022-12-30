@@ -9,7 +9,6 @@ const Shop = () => {
 }
 
 const App = () => {
-  console.log(`Api key ${process.env.API_KEY}`)
   return (
     <Routes>
       <Route path="/" element={<Navigation/>}>
