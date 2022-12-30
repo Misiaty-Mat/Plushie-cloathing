@@ -1,19 +1,16 @@
-import { Fragment, useContext } from "react"
-import { Outlet, Link } from "react-router-dom"
+import { Fragment, useContext } from "react";
+import { Outlet, Link } from "react-router-dom";
 
-import { UserContext } from "../../contexts/user.content"
-import { signOutUser } from "../../utils/firebase/firebase.utils"
+import { UserContext } from "../../contexts/user.content";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
-import './navigation.styles.scss'
-import BearLogo from '../../assets/logo.png'
+import './navigation.styles.scss';
+import BearLogo from '../../assets/logo.png';
 
 const Navigation = () => {
-    const { currentUser, setCurrentUser } = useContext(UserContext)
+    const { currentUser } = useContext(UserContext);
 
-    const signOutHandler = async () => {
-        await signOutUser()
-        setCurrentUser(null)
-    }
+    const signOutHandler = async () => await signOutUser();
 
     return(
         <Fragment>
@@ -38,7 +35,7 @@ const Navigation = () => {
             </div>
             <Outlet />
         </Fragment>
-    )
-}
+    );
+};
 
-export default Navigation
+export default Navigation;

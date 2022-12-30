@@ -1,61 +1,51 @@
-import { useState, useContext } from "react"
+import { useState } from "react";
 
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 
-import { UserContext } from "../../contexts/user.content";
+import { signInAuthUserWithEmailAndPassword, signInWithGoogleRedirect } from "../../utils/firebase/firebase.utils";
 
-import { signInAuthUserWithEmailAndPassword, createUserDocumentFromAuth, signInWithGoogleRedirect } from "../../utils/firebase/firebase.utils";
-
-import './sign-in-form.styles.scss'
+import './sign-in-form.styles.scss';
 
 const defaultFormFields = {
     email: '',
     password: '',
-}
+};
 
 const SignInForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { email, password } = formFields;
 
-    const { setCurrentUser } = useContext(UserContext)
+    const resetFormFields = () => setFormFields(defaultFormFields);
 
-    const resetFormFields = () => {
-        setFormFields(defaultFormFields)
-    }
-
-    const signInWithGoogle = async () => {
-        const { user } = await signInWithGoogleRedirect();
-        await createUserDocumentFromAuth(user)
-    }
+    const signInWithGoogle = async () => await signInWithGoogleRedirect();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         
         try {
-            const { user } = await signInAuthUserWithEmailAndPassword(email, password);
-            setCurrentUser(user);
+            await signInAuthUserWithEmailAndPassword(email, password);
             
             resetFormFields();
         } catch(error) {
             switch(error.code) {
                 case "auth/wrong-password":
-                    alert('Wrong password for user')
-                    break
+                    alert('Wrong password for user');
+                    break;
                 case "auth/user-not-found":
-                    alert("User has not been found")
-                    break
+                    alert("User has not been found");
+                    break;
                 default:
-                    console.log(error)
-            }
-        }
-    }
+                    console.log(error);
+            };
+        };
+    };
 
     const handleChange = (event) => {
         const { name, value } = event.target;
 
-        setFormFields({...formFields, [name]: value})
-    }
+        setFormFields({...formFields, [name]: value});
+    };
 
     return(
         <div className="sign-up-container">
@@ -71,7 +61,7 @@ const SignInForm = () => {
                 </div>
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default SignInForm
+export default SignInForm;
