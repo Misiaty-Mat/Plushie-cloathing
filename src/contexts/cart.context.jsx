@@ -6,7 +6,6 @@ const findItemInCart = (cartItems, itemToFind) => {
 
 const addCartItem = (cartItems, productToAdd) => {
     const foundItem = findItemInCart(cartItems, productToAdd)
-    console.log(foundItem)
     if(foundItem) {
         return cartItems.map(cartItem => cartItem.id === productToAdd.id ?
             {...cartItem, quantity: cartItem.quantity + 1} : cartItem
