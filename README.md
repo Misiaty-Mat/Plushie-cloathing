@@ -1,3 +1,5 @@
+# Deployed app
+[Plushie cloathing.app](https://monumental-gumption-5c9932.netlify.app/)
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
